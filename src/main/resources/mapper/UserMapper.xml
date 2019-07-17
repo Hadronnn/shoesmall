@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oaec.shoes.mapper.UserMapper">
+    <select id="queryByUsernameAndPassword" parameterType="string" resultType="user">
+        SELECT * FROM users WHERE user_name = #{username} AND password = #{password}
+    </select>
+    <select id="queryByUsername" parameterType="string" resultType="user">
+        SELECT * FROM users WHERE user_name = #{username}
+    </select>
+    <select id="queryByPhone" parameterType="string" resultType="user">
+        SELECT * FROM users WHERE phone = #{phone}
+    </select>
+    <insert id="doInsert" parameterType="string" >
+        INSERT INTO users (user_name, password, money, phone, is_admin, register_time, pic_address)
+        VALUES (#{username},#{password},0,#{phone},0,sysdate(),'/static/images/moren.jpg')
+    </insert>
+</mapper>

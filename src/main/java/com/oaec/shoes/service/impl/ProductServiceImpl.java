@@ -14,39 +14,26 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> query(String name, Integer sortId, Integer brandId, Integer page) {
-        List<Product> products = productMapper.queryAll();
-        return products;
+        if(sortId != null){
+            if (brandId == null){
+                return productMapper.queryBySortId(sortId);
+            }else{
+                return productMapper.queryBySortIdAndBrandId(sortId,brandId);
+            }
+        }else if (brandId != null){
+            return productMapper.queryByBrandId(brandId);
+        }
+        if (name == null) {
+            return productMapper.queryAll();
+//            return null;
+        }else{
+            name = "%"+ name +"%";
+            return productMapper.queryLike(name);
+        }
     }
 
     @Override
     public Product query(Integer productId) {
         return productMapper.queryByProductId(productId);
     }
-
-    /*@Override
-    public List<Product> query(String name, String sortId, String brandId, String page) {
-        if(sortId != null){
-            if (brandId == null){
-                return productMapper.queryById(Integer.parseInt(sortId));
-            }else{
-                return productMapper.queryByIdAndBrandId(Integer.parseInt(sortId),Integer.parseInt(brandId));
-            }
-        }
-        if (sortId == null && brandId != null){
-            return productMapper.queryByBrandId(Integer.parseInt(brandId));
-        }
-        if (name == null) {
-            return productMapper.queryAll(Integer.parseInt(page));
-        }else{
-            return productMapper.queryLike(name);
-        }
-    }
-
-    @Override
-    public Product query(String productId) {
-        if (productId != null){
-            return productMapper.queryByProductId(Integer.parseInt(productId));
-        }
-        return null;
-    }*/
 }

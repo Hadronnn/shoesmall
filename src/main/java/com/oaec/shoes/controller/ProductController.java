@@ -23,7 +23,7 @@ public class ProductController {
     @GetMapping("/list")
     public String queryAll(String name, Integer sortId, Integer brandId, Integer page,Model model){
         List<Product> products = productService.query(name, sortId, brandId, page);
-        System.out.println("products = " + products);
+        System.out.println("products = " + products.size());
         model.addAttribute("list",products);
         return "list";
     }
