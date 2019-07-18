@@ -3,39 +3,39 @@ package com.oaec.shoes.entil;
 import java.util.Date;
 
 public class Address {
-    private Integer adressId;
+    private Integer addressId;
     private String province;
     private String city;
     private String county;
     private Integer code;
     private String name;
     private String contact;
-    private String adress;
+    private String address;
     private Integer userId;
     private Boolean isDefault;
     private Integer state;
     private Date addTime;
 
-    public Address(String province, String city,Integer code, String county, String name, String contact, String adress, Integer userId) {
+    public Address(String province, String city,Integer code, String county, String name, String contact, String address, Integer userId) {
         this.province = province;
         this.code = code;
         this.city = city;
         this.county = county;
         this.name = name;
         this.contact = contact;
-        this.adress = adress;
+        this.address = address;
         this.userId = userId;
     }
 
-    public Address(Integer adressId, String province, String city, String county, Integer code, String name, String contact, String adress, Integer userId, Boolean isDefault, Integer state, Date addTime) {
-        this.adressId = adressId;
+    public Address(Integer addressId, String province, String city, String county, Integer code, String name, String contact, String address, Integer userId, Boolean isDefault, Integer state, Date addTime) {
+        this.addressId = addressId;
         this.province = province;
         this.county = county;
         this.city = city;
         this.code = code;
         this.name = name;
         this.contact = contact;
-        this.adress = adress;
+        this.address = address;
         this.userId = userId;
         this.isDefault = isDefault;
         this.state = state;
@@ -46,11 +46,11 @@ public class Address {
     }
 
     public Integer getAdressId() {
-        return adressId;
+        return addressId;
     }
 
-    public void setAdressId(Integer adressId) {
-        this.adressId = adressId;
+    public void setAdressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
     public String getName() {
@@ -70,11 +70,11 @@ public class Address {
     }
 
     public String getAdress() {
-        return adress;
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAdress(String address) {
+        this.address = address;
     }
 
     public Integer getUserId() {
@@ -143,14 +143,14 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "adressId=" + adressId +
+                "addressId=" + addressId +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", county='" + county + '\'' +
                 ", code=" + code +
                 ", name='" + name + '\'' +
                 ", contact='" + contact + '\'' +
-                ", adress='" + adress + '\'' +
+                ", address='" + address + '\'' +
                 ", userId=" + userId +
                 ", isDefault=" + isDefault +
                 ", state=" + state +

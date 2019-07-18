@@ -19,6 +19,9 @@
         </if>
         ORDER BY SALES_VOLUME DESC
     </select>
+    <select id="queryByProductId" resultType="product">
+        SELECT * FROM product WHERE product_id = #{productId} AND state = 0
+    </select>
     <update id="updateStockAndSalesVolume" >
         UPDATE product SET STOCK = STOCK - #{num},SALES_VOLUME = SALES_VOLUME + #{num} WHERE PRODUCT_ID = #{productId}
     </update>

@@ -90,17 +90,17 @@
 						<div class="price">￥${cart.PRICE}</div>
 						<div class="number">
 							<p class="num clearfix">
-								<img name="sub" onclick="action(this)" class="fl sub" src="img/temp/sub.jpg">
+								<img name="sub" onclick="action(this)" class="fl sub" src="${path}/img/temp/sub.jpg">
 								<span class="fl">${cart.NUM}</span>
-								<img name="add" onclick="action(this)" class="fl add" src="img/temp/add.jpg">
+								<img name="add" onclick="action(this)" class="fl add" src="${path}/img/temp/add.jpg">
 							</p>
 						</div>
 						<div class="price sAll">￥${cart.NUM * cart.PRICE}</div>
-						<div class="price"><a class="del" href="#" onclick="del(this)" href="#2">删除</a></div>
+						<div class="price"><a class="del" href="javascript:void (0)" onclick="del(this)">删除</a></div>
 					</div>
 				</c:forEach>
 
-				<div class="goOn">空空如也~<a href="WEB-INF/views/index.jsp">去逛逛</a></div>
+				<div class="goOn">空空如也~<a href="${path}/index">去逛逛</a></div>
 				<div class="tr clearfix">
 					<label class="fl">
 						<input class="checkAll" type="checkbox"/>
@@ -189,9 +189,9 @@
 		</div>
 		<div class="pleaseC">
 			<p>请选择宝贝</p>
-			<img class="off" src="img/temp/off.jpg" />
+			<img class="off" src="${path}/img/temp/off.jpg" />
 		</div>
-		<script src="js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${path}/js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			function del(e) {
 				if ($(e).parent().parent().hasClass("th")){
@@ -199,8 +199,11 @@
 					var productId = th.children(":first").children(":first").children().val();
 					$.ajax({
 						url:"${path}/delete4cart",
-						type:"get",
-						data:{productId:productId},
+						type:"post",
+						data:{
+							_method:"delete",
+							productId:productId
+						},
 						success:function (res) {
 							console.log(res);
 							if (res.result){
@@ -225,8 +228,11 @@
 							console.log(productId);
 							$.ajax({
 								url:"${path}/delete4cart",
-								type:"get",
-								data:{productId:productId},
+								type:"post",
+								data:{
+									_method:"delete",
+									productId:productId
+								},
 								success:function (res) {
 									console.log(res);
 									if (res.result){
