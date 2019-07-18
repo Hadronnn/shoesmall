@@ -1,5 +1,6 @@
 package com.oaec.shoes.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.oaec.shoes.entil.Product;
 import com.oaec.shoes.mapper.ProductMapper;
 import com.oaec.shoes.service.ProductService;
@@ -21,6 +22,7 @@ public class ProductServiceImpl implements ProductService {
         param.put("name",name);
         param.put("sortId",sortId);
         param.put("brandId",brandId);
+        PageHelper.startPage(page,4);
         List<Product> products = productMapper.query(param);
         return products;
     }
