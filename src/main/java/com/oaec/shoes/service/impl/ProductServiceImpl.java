@@ -6,7 +6,10 @@ import com.oaec.shoes.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
     @Autowired
@@ -14,22 +17,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> query(String name, Integer sortId, Integer brandId, Integer page) {
-        if(sortId != null){
-            if (brandId == null){
-                return productMapper.queryBySortId(sortId);
-            }else{
-                return productMapper.queryBySortIdAndBrandId(sortId,brandId);
-            }
-        }else if (brandId != null){
-            return productMapper.queryByBrandId(brandId);
-        }
-        if (name == null) {
-            return productMapper.queryAll();
-//            return null;
-        }else{
-            name = "%"+ name +"%";
-            return productMapper.queryLike(name);
-        }
+        Map<String,Object> param = new HashMap<>();
+        param.put("name",name);
+        param.put("sortId",sortId);
+        param.put("brandId",brandId);
+        List<Product> products = productMapper.query(param);
+        return products;
     }
 
     @Override
