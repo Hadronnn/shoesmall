@@ -113,7 +113,7 @@
 												<td class="w-120px" rowspan="${fn:length(order.products)}">
 														${order.address.name}<br>
 														${order.address.contact}<br>
-														${order.address.province}${order.address.city}${order.address.county}${order.address.adress}
+														${order.address.province}${order.address.city}${order.address.county}${order.address.address}
 												</td>
 												<td class="w-120px" rowspan="${fn:length(order.products)}">
 													总金额：<br>

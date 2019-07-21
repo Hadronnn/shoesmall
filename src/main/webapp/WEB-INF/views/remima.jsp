@@ -57,7 +57,7 @@
 						<h4>我的交易</h4>
 						<ul>
 							<li><a href="${path}/cart">我的购物车</a></li>
-							<li><a href="${path}/myorderq">我的订单</a></li>
+							<li><a href="${path}/myorder">我的订单</a></li>
 							<li><a href="${path}/myprod">评价晒单</a></li>
 						</ul>
 						<h4>个人中心</h4>
@@ -74,7 +74,7 @@
 				</div>
 				<div class="you fl">
 					<h2>修改密码</h2>
-					<form action="#" method="get" class="remima">
+					<form action="javascript:void (0)" method="get" class="remima">
 						<input type="hidden" name="userId" value="${sessionScope.user.userId}">
 						<p><span>原密码：</span><input name="password" type="text" /></p>
 						<p class="op">输入原密码</p>
@@ -154,11 +154,13 @@
 				console.log(newpassword);
 				if (tassword !== newpassword){
 					alert("两次输入的密码不一致！");
+					location="${path}/remima"
 				}else{
 					$.ajax({
 						url:"${path}/remima",
 						type:"post",
 						data:{
+							_method:"put",
 							password:password,
 							newpassword:newpassword,
 						},

@@ -16,4 +16,10 @@
         INSERT INTO users (user_name, password, money, phone, is_admin, register_time, pic_address)
         VALUES (#{username},#{password},0,#{phone},0,sysdate(),'/static/images/moren.jpg')
     </insert>
+    <select id="queryByUserIdsAndPassword" resultType="user">
+        SELECT * FROM users WHERE USER_ID = #{userId} AND PASSWORD = #{password}
+    </select>
+    <update id="updatePassword" >
+        UPDATE users SET password = #{password} WHERE USER_ID = #{userId}
+    </update>
 </mapper>

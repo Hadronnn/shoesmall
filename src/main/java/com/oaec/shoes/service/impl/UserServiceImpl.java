@@ -54,4 +54,16 @@ public class UserServiceImpl implements UserService {
             return  map;
         }
     }
+
+    @Override
+    public Boolean editPassword(Integer userId, String password, String newpassword) {
+        User user = userMapper.queryByUserIdsAndPassword(userId, password);
+        System.out.println("user = " + user);
+        if (user == null){
+            return false;
+        }else{
+            int i = userMapper.updatePassword(userId, newpassword);
+            return i == 1;
+        }
+    }
 }

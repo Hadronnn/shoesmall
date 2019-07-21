@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oaec.shoes.mapper.AddressMapper">
+    <insert id="doInsert" parameterType="address">
+        INSERT INTO address (name, contact, address, user_id, is_default, state, add_time, province, city, county, code)
+        VALUES(#{name},#{contact},#{address},#{userId},0,0,sysdate(),#{province},#{city},#{county},#{code})
+    </insert>
+    <select id="queryByUserId" resultType="address">
+        SELECT * FROM address WHERE USER_ID = #{userId} AND STATE = 0
+    </select>
+    <update id="updateState" >
+        UPDATE address SET STATE = 1 WHERE address_id = #{addressId}
+    </update>
+    <select id="queryByAddressId" resultType="address">
+        SELECT * FROM address WHERE address_id=#{addressId}
+    </select>
+</mapper>

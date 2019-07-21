@@ -45,11 +45,11 @@ public class Address {
     public Address() {
     }
 
-    public Integer getAdressId() {
+    public Integer getAddressId() {
         return addressId;
     }
 
-    public void setAdressId(Integer addressId) {
+    public void setAddressId(Integer addressId) {
         this.addressId = addressId;
     }
 
@@ -69,11 +69,11 @@ public class Address {
         this.contact = contact;
     }
 
-    public String getAdress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAdress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 

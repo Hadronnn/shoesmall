@@ -28,14 +28,14 @@
         SELECT * FROM cart WHERE USER_ID = #{userId} AND PRODUCT_ID = #{productId} AND NUM >= 5
     </select>
     <select id="queryProduct4Order" resultType="map">
-        SELECT SUM(NUM) NUM,SUM(NUM * PRICE) PRICE FROM CART,PRODUCT WHERE cart.PRODUCT_ID = product.PRODUCT_ID AND cart.USER_ID = #{userId} AND cart.PRODUCT_ID IN 
-        <foreach collection="array" item="productId" index="index" open="(" close=")" separator=",">
+        SELECT product.PRODUCT_ID,product.PIC_ADRESS,product.PRODUCT_NAME,cart.NUM,product.PRICE FROM CART,PRODUCT WHERE cart.PRODUCT_ID = product.PRODUCT_ID AND cart.USER_ID = #{userId} AND cart.PRODUCT_ID IN
+        <foreach collection="productIds" item="productId" index="index" open="(" close=")" separator=",">
             #{productId}
         </foreach>
     </select>
     <select id="total" resultType="map">
-        SELECT SUM(NUM) NUM,SUM(NUM * PRICE) PRICE FROM CART,PRODUCT WHERE cart.PRODUCT_ID = product.PRODUCT_ID AND cart.USER_ID = ? AND cart.PRODUCT_ID IN
-        <foreach collection="array" item="productId" index="index" open="(" close=")" separator=",">
+        SELECT SUM(NUM) NUM,SUM(NUM * PRICE) PRICE FROM CART,PRODUCT WHERE cart.PRODUCT_ID = product.PRODUCT_ID AND cart.USER_ID = #{userId} AND cart.PRODUCT_ID IN
+        <foreach collection="productIds" item="productId" index="index" open="(" close=")" separator=",">
             #{productId}
         </foreach>
     </select>

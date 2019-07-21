@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -55,5 +56,27 @@ public class UserController {
             json.put("error",map.get("error"));
         }
         return JSON.toJSONString(json);
+    }
+
+    @GetMapping("/myxin")
+    public String myxin(){
+        return "mygxin";
+    }
+
+    @GetMapping("/remima")
+    public String remima(){
+        return "remima";
+    }
+    @PutMapping(value = "/remima",produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String remima(String password,String newpassword,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        Boolean aBoolean = userService.editPassword(user.getUserId(), password, newpassword);
+        return "{\"success\":"+aBoolean+"}";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:index";
     }
 }

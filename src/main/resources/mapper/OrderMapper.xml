@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oaec.shoes.mapper.OrderMapper">
+    <update id="doUpdate" parameterType="int" >
+        UPDATE orders SET user_id=#{userId},address_id=#{addressId},create_time=sysdate() WHERE order_id = #{orderId}
+    </update>
+    <insert id="doInsertInfo" parameterType="map">
+        INSERT INTO orderinfo (order_id, product_id, product_name, pic_adress, price, num) VALUES (#{ORDER_ID},#{PRODUCT_ID},#{PRODUCT_NAME},#{PIC_ADRESS},#{PRICE},#{NUM})
+    </insert>
+    <select id="queryByUserId" parameterType="int" resultType="map">
+        SELECT * FROM orders WHERE USER_ID = #{userId} ORDER BY orders.ORDER_ID DESC
+    </select>
+    <select id="queryProductByOrderId" parameterType="int" resultType="map">
+        SELECT orderinfo.PRODUCT_ID,orderinfo.PIC_ADRESS,orderinfo.PRODUCT_NAME,orderinfo.NUM,orderinfo.PRICE FROM orders,orderinfo WHERE orders.ORDER_ID = orderinfo.ORDER_ID AND orders.ORDER_ID = #{orderId}
+    </select>
+    <select id="getTotalPrice" resultType="double">
+        SELECT SUM(orderinfo.NUM * orderinfo.PRICE) TOTAL_PRICE FROM orders,orderinfo WHERE orders.ORDER_ID = orderinfo.ORDER_ID AND orders.ORDER_ID = #{orderId}
+    </select>
+    <select id="getOrderId" resultType="int">
+        SELECT MAX(order_id) FROM orders
+    </select>
+    <insert id="doInsert" >
+        INSERT INTO orders (user_id, address_id) VALUES (null,null)
+    </insert>
+</mapper>

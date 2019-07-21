@@ -16,7 +16,7 @@ public interface CartMapper {
     int doUpdateAdd(@Param("userId")Integer userId,@Param("productId")Integer productId);
     int doUpdateSub(@Param("userId")Integer userId,@Param("productId")Integer productId);
     Cart queryByUserIdANDProductIdAndNum(@Param("userId")Integer userId,@Param("productId")Integer productId);
-    List<Map<String ,Object>> queryProduct4Order(@Param("userId")Integer userId,Integer[] productIds);
-    Map<String,Object> total(@Param("userId")Integer userId,Integer[] productIds);
+    List<Map<String ,Object>> queryProduct4Order(@Param("userId")Integer userId,@Param("productIds") Integer[] productIds);
+    Map<String,Object> total(@Param("userId")Integer userId,@Param("productIds")Integer[] productIds);
     Map<String,Object> query(@Param("userId")Integer userId,@Param("productId")Integer productId);
 }

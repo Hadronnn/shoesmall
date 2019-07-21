@@ -78,16 +78,16 @@
 					<h2>收货地址</h2>
 					<div class="add">
 						<div>
-							<a href="#2" id="addxad"><img src="img/jia.png"/></a>
+							<a href="javascript:void (0)" id="addxad" onclick="dz()" ><img src="img/jia.png"/></a>
 							<span>添加新地址</span>
 						</div>
                         <c:forEach items="${requestScope.list}" var="address" >
                             <div class="dizhi">
-                                <input name="addressId" type="hidden" value="${address.adressId}">
+                                <input name="addressId" type="hidden" value="${address.addressId}">
                                 <p>${address.name}</p>
                                 <p>${address.contact}</p>
                                 <p>${address.province} ${address.city} ${address.county}</p>
-                                <p>${address.adress}（${address.code}）</p>
+                                <p>${address.address}（${address.code}）</p>
                                 <p class="addp"><a href="#" onclick="modify(this)"  class="modify">修改</a><a href="#" class="deladd">删除</a></p>
                             </div>
                         </c:forEach>
@@ -115,7 +115,7 @@
 				<input name="name" type="text" placeholder="姓名" class="on" />
 				<input name="contact" type="text" placeholder="手机号" />
 				<div class="city">
-					<select class="province" name="province" onchange="selectCityByPid(this)">
+					<select class="province" name="province" onclick="pro()" onchange="selectCityByPid(this)">
 						<option value="省份/自治区">省份/自治区</option>
 					</select>
 					<select class="citys" name="city" onchange="selectCountyByPid(this)">
@@ -138,7 +138,7 @@
                 <input name="name" type="text" placeholder="姓名" class="on" />
                 <input name="contact" type="text" placeholder="手机号" />
                 <div class="city">
-                    <select class="province" name="province" onclick="pro()" onchange="selectCityByPid(this)">
+                    <select class="province" name="province" onclick="dz()" onchange="selectCityByPid(this)">
                         <option value="省份/自治区">省份/自治区</option>
                     </select>
                     <select class="citys" name="city" onchange="selectCountyByPid(this)">
@@ -189,16 +189,21 @@
 		<script src="${path}/js/public.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${path}/js/user.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript">
-           $(function () {
+           function dz() {
+			   $(".province").empty();
+			   $(".province").append("<option value=\"" + '省份/直辖市' + "\">"+'省份/直辖市'+"</option>");
+			   $(".citys").empty();
+			   $(".citys").append("<option value=\"" + '城市/地区' + "\">"+'城市/地区'+"</option>");
+			   $(".county").empty();
+			   $(".county").append("<option value=\"" + '区/县' + "\">"+'区/县'+"</option>");
                for (var province in citys[100000]){
                    // console.log(province);
                    // console.log(citys[100000][province]);
                    var name = citys[100000][province];
                    $(".province").append("<option value=\"" + province + "\">"+name+"</option>");
                }
-           });
+           };
            function pro() {
-			   $(".province").empty();
 			   for (var province in citys[100000]){
 				   // console.log(province);
 				   // console.log(citys[100000][province]);
@@ -244,7 +249,7 @@
 							$(".citys").append("<option value=\"" + '城市/地区' + "\">"+res.success.city+"</option>")
 							$(".county").empty();
 							$(".county").append("<option value=\"" + '城市/地区' + "\">"+res.success.county+"</option>")
-							$(".readd").children().children("textarea[name='adress']").val(res.success.adress);
+							$(".readd").children().children("textarea[name='adress']").val(res.success.address);
 							$(".readd").children().children("input[name='code']").val(res.success.code);
 						}
 					}
@@ -258,7 +263,7 @@
                     var province = form.children(".city").children("select[name='province']").children(":selected").text();
                     var city = form.children(".city").children("select[name='city']").children(":selected").text();
                     var county = form.children(".city").children("select[name='county']").children(":selected").text();
-                    var adress = form.children("textarea").val();
+                    var address = form.children("textarea").val();
                     var code = form.children("input[name='code']").val();
                     var data = {
                         name:name,
@@ -266,12 +271,12 @@
                         province:province,
                         city:city,
                         county:county,
-                        adress:adress,
+                        address:address,
                         code:code
                     };
                     $.ajax({
-                        url:"${path}/add2adress",
-                        type:"get",
+                        url:"${path}/add2address",
+                        type:"post",
                         data:data,
                         success:function (res) {
                             if (res.success === true){
@@ -290,9 +295,11 @@
                 // console.log(addressId);
                 // console.log(div[0]);
                 $.ajax({
-                    url:"${path}/deleteaddress",
-                    type:"get",
-                    data:{addressId:addressId},
+                    url:"${path}/delete2address",
+                    type:"post",
+                    data:{
+                    	_method:"delete",
+                    	addressId:addressId},
                     success:function (res) {
                         if (res.success === true){
                             alert("删除地址成功");
@@ -313,7 +320,7 @@
                var province = form.children(".city").children("select[name='province']").children(":selected").text();
                var city = form.children(".city").children("select[name='city']").children(":selected").text();
                var county = form.children(".city").children("select[name='county']").children(":selected").text();
-               var adress = form.children("textarea").val();
+               var address = form.children("textarea").val();
                var code = form.children("input[name='code']").val();
                var data = {
                    addressId:addressId,
@@ -322,13 +329,14 @@
                    province:province,
                    city:city,
                    county:county,
-                   adress:adress,
-                   code:code
+                   address:address,
+                   code:code,
+				   _method:"put",
                };
                console.log(data);
                $.ajax({
                    url:"${path}/modifyAddress",
-                   type:"get",
+                   type:"post",
                    data:data,
                    success:function (res) {
                        if (res.success === true){

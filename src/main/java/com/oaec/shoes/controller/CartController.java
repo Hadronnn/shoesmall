@@ -55,4 +55,28 @@ public class CartController {
         }
         return JSON.toJSONString(json);
     }
+    @GetMapping(value = "/updatenum",produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String updatenum(Integer productId,String action,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        Boolean ma = cartService.queryCartNum(user.getUserId(), productId);
+        Map<String,Object> json = new HashMap<>();
+        if (ma){
+            Map<String, Object> map = cartService.updateNum(user.getUserId(),productId, action);
+            if (map.containsKey("add")){
+                if (map.get("add").equals(1)){
+                    json.put("add",true);
+                }else{
+                    json.put("add",false);
+                }
+            }else{
+                if (map.get("sub").equals(1)){
+                    json.put("sub",true);
+                }else{
+                    json.put("sub",false);
+                }
+            }
+        }
+        return JSON.toJSONString(json);
+    }
 }

@@ -11,4 +11,8 @@ public interface UserMapper {
     User queryByPhone(String phone);
 
     int doInsert(@Param("username") String username,@Param("password") String password,@Param("phone") String phone);
+
+    User queryByUserIdsAndPassword(@Param("userId") Integer userId,@Param("password")String Password);
+
+    int updatePassword(@Param("userId")Integer userId,@Param("password")String password);
 }
