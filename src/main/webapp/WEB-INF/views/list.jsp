@@ -216,7 +216,7 @@
                                     <div class="col-12 text-center">
                                         <ul class="pagination">
                                             <c:forEach begin="1" end="${requestScope.pages}" varStatus="status">
-                                                <li><a href="${path}/list?<c:if test="${param.sortId != null}">sortId=${param.sortId}&</c:if><c:if test="${param.brandId != null}">sortId=${param.BrandId}&</c:if><c:if test="${param.name != null}">sortId=${param.name}&</c:if>page=${status.count}">${status.count}</a></li>
+                                                <li><a href="${path}/list?<c:if test="${param.sortId != null}">sortId=${param.sortId}&</c:if><c:if test="${param.brandId != null}">brandId=${param.BrandId}&</c:if><c:if test="${param.name != null}">name=${param.name}&</c:if>page=${status.count}">${status.count}</a></li>
 
                                             </c:forEach>
                                             <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
